@@ -1,0 +1,20 @@
+name: Trigger Action on Comment
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  run_on_comment:
+    if: github.event.issue.pull_request != null && contains(github.event.comment.body, '/playwright')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Add any steps you want to run when the action is triggered
+      - name: Run Tests
+        run: |
+          echo "Running tests based on PR comment trigger"
+          # Insert commands to run your tests here
